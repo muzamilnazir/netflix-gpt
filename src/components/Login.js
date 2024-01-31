@@ -1,7 +1,7 @@
 import React, {  useRef, useState } from 'react'
 import Header from './Header'
 import { validation } from '../utils/validation'
-import {  createUserWithEmailAndPassword,onAuthStateChanged,signInWithEmailAndPassword,updateProfile } from "firebase/auth";
+import {  createUserWithEmailAndPassword,signInWithEmailAndPassword,updateProfile } from "firebase/auth";
 import { auth } from '../utils/firebase';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
@@ -29,7 +29,7 @@ const Login = () => {
       if(!singIn){
 
           // const auth = getAuth();
-          const userCredential = await createUserWithEmailAndPassword(auth, email.current.value,password.current.value)
+           await createUserWithEmailAndPassword(auth, email.current.value,password.current.value)
             try{
               // const auth = getAuth();
               updateProfile(auth.currentUser, {
@@ -61,7 +61,7 @@ const Login = () => {
             }
       }
       else{
-        const userCredential = await signInWithEmailAndPassword(auth, email.current.value,password.current.value)
+        await signInWithEmailAndPassword(auth, email.current.value,password.current.value)
           try{
             // Signed in
             // const user = userCredential.user;
