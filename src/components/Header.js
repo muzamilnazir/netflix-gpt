@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LOGO_URL } from '../utils/constants';
 import { useNavigate } from 'react-router-dom';
 import { addUser, removeUser } from '../utils/userSlice';
+import { onGptButtonClick, onLanguageSelectClick } from '../utils/gptSlice';
+
 
 
 const Header = () => {
@@ -33,6 +35,8 @@ const Header = () => {
   },[])
  
   const user = useSelector((store)=> store?.user)
+  const gpt = useSelector((store)=> store.Gpt)
+
   const handleSignOut = () =>{
     signOut(auth).then(() => {
       // Sign-out successful.
@@ -43,6 +47,14 @@ const Header = () => {
     });
 
   }
+  const handleGptButton = () =>{
+    dispatch(onGptButtonClick())
+  }
+  const handleOnChange = (e) =>{
+    dispatch(onLanguageSelectClick(e.target.value))
+  }
+  const gptSearchButtonStatus = useSelector(store => store?.Gpt)
+
   return (
     
         <div className='absolute py-2 px-8  bg-gradient-to-b from-black z-10 w-screen flex justify-between'>
@@ -51,6 +63,15 @@ const Header = () => {
           src= {LOGO_URL} alt='logo'/>
           </div>
           <div className='flex'>
+            {
+              gptSearchButtonStatus?.gptSearch &&  <select onChange={handleOnChange} className='h-7 mt-6 mr-5' name="language" id="language">
+              <option value="English">English</option>
+              <option value="Hindi">Hindi</option>
+              <option value="Spanish">Spanish</option>
+            </select>
+            }
+       
+            <button onClick={handleGptButton} className='bg-purple-600 h-7  mt-6 mr-3 rounded-sm p-1'>{gpt?.gptSearch ? "homepage" : "GPT Search"}</button>
           <img className='w-10 h-9 mt-5 mr-4 rounded-xl' src={user?.photoURL} alt=''/>
           <button onClick={handleSignOut} className='bg-black text-white rounded-lg mt-5 h-9 w-16'>Sign Out</button>
           </div>
