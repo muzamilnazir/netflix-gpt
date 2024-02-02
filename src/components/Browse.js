@@ -7,6 +7,7 @@ import useNowTopRatedMovies from '../hooks/useTopRatedMovies'
 import useUpcomingMovies from '../hooks/useUpcomingMovies'
 import GptSearch from './GptSearch'
 import { useSelector } from 'react-redux'
+import GptSearchedMovies from './GptSearchedMovies'
 
 const Browse = () => {
   const gptSearchButtonStatus = useSelector(store => store?.Gpt)
@@ -16,7 +17,7 @@ const Browse = () => {
   useUpcomingMovies()
   return (
     <div>
-     { gptSearchButtonStatus?.gptSearch ? <><Header/> <GptSearch/></> :<> <Header/>
+     { gptSearchButtonStatus?.gptSearch ? <><Header/> <GptSearch/> <GptSearchedMovies/></> :<> <Header/>
       <MainContainer/>
       <SecondaryContainer/></>}
       
